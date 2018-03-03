@@ -9,11 +9,12 @@ var width =  document.getElementById('input_width');
 function makeGrid() {
   h = height.value;
   w = width.value;
+
   grid = "";
-  for(var i = 1; i <= h; i++){
+  for(var i = 1, k = i * 10; i <= h; i++){
     grid += '<tr>';
-    for(var j = 1; j <= w; j++){
-      grid += '<td><canvas id="'+i+'.'+j+'" width="50" height="50" onclick="setColor('+i+'.'+j+')"></canvas></td>';
+    for(var j = 1; j <= w; j++, k++){
+      grid += '<td id="'+k+'" onclick="setColor('+k+')"></td>';
     }
     grid += '</tr>';
   }
@@ -21,18 +22,13 @@ function makeGrid() {
 
 }
 
+// make grid on submission of form
 document.getElementById('sizePicker').addEventListener('submit', function(evt){
   evt.preventDefault();
   makeGrid();
 });
 
+// Set color of specific cell
 function setColor( id ){
-  var c = document.getElementById(id);
-  var ctx = c.getContext('2d');
-  ctx.fillStyle = colorPicker.value;
-  ctx.fillRect(0, 0, 50, 50);
+  document.getElementById(id).style.backgroundColor = colorPicker.value;
 }
-
-// makeGrid();
-console.log(pixel_canvas.innerHTML);
-console.log(colorPicker.value);
